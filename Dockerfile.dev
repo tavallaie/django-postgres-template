@@ -1,0 +1,18 @@
+FROM python:3.11.8-slim
+ENV PYTHONUNBUFFERED=1
+WORKDIR /code
+
+# Install dependencies in a single layer to reduce image size
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt /code/
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /code/
+# Make sure the script is executable
+RUN chmod +x /code/entrypoint.sh
