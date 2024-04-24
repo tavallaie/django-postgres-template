@@ -18,7 +18,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-if [ "$if_prod" = "true" ]; then
+if [ "$is_prod" = "true" ]; then
     echo "Running in production mode"
     # Run collectstatic in production only
     echo "Running collect static ..."
